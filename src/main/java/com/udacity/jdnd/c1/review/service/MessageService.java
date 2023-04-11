@@ -1,36 +1,33 @@
 package com.udacity.jdnd.c1.review.service;
 
+import com.udacity.jdnd.c1.review.mapper.MessageMapper;
 import com.udacity.jdnd.c1.review.model.ChatForm;
 import com.udacity.jdnd.c1.review.model.ChatMessage;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MessageService {
-    private List<ChatMessage> chatMessages;
+    private MessageMapper messageMapper;
 
-    @PostConstruct
-    public void postConstruct() {
-        this.chatMessages = new ArrayList<>();
+    public MessageService(MessageMapper messageMapper) {
+        this.messageMapper = messageMapper;
     }
 
-    public void addMessage(ChatForm chatForm) {
+    public void addMessage(ChatForm chatForm, String username) {
         ChatMessage chat = new ChatMessage();
-        chat.setUsername(chatForm.getUsername());
-
+        chat.setUsername(username);
         switch (chatForm.getMessageType()) {
             case "Say" -> chat.setMessage(chatForm.getMessageText());
             case "Shout" -> chat.setMessage(chatForm.getMessageText().toUpperCase());
             case "Whisper" -> chat.setMessage(chatForm.getMessageText().toLowerCase());
         }
 
-        chatMessages.add(chat);
+        messageMapper.addChatMessage(chat);
     }
 
     public List<ChatMessage> getMessages() {
-        return chatMessages;
+        return messageMapper.getChatMessages();
     }
 }
