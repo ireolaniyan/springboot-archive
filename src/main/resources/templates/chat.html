@@ -23,5 +23,8 @@
 <div th:each="chatMessage: ${chatMessages}">
     <span th:text="${chatMessage.username}">Username</span>: <span th:text="${chatMessage.message}">Hi there</span>
 </div>
+<form th:action="@{/logout}" method="POST">
+    <button type="submit">Sign Out</button>
+</form>
 </body>
 </html>
