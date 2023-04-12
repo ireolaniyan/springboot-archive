@@ -15,9 +15,9 @@ public class MessageService {
         this.messageMapper = messageMapper;
     }
 
-    public void addMessage(ChatForm chatForm, String username) {
+    public void addMessage(ChatForm chatForm) {
         ChatMessage chat = new ChatMessage();
-        chat.setUsername(username);
+        chat.setUsername(chatForm.getUsername());
         switch (chatForm.getMessageType()) {
             case "Say" -> chat.setMessage(chatForm.getMessageText());
             case "Shout" -> chat.setMessage(chatForm.getMessageText().toUpperCase());

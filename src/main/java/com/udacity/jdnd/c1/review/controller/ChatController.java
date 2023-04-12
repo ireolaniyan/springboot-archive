@@ -5,7 +5,10 @@ import com.udacity.jdnd.c1.review.service.MessageService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +33,9 @@ public class ChatController {
     public String addChatMessage(ChatForm chatForm, Model model, Authentication authentication) {
         String username = authentication.getName();
         LOGGER.log(Level.INFO, String.format("%s - %s", "LOGGED IN USER", username));
+        chatForm.setUsername(username);
 
-        messageService.addMessage(chatForm, username);
+        messageService.addMessage(chatForm);
         chatForm.setMessageText("");
         model.addAttribute("chatMessages", messageService.getMessages());
         return "chat";
