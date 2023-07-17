@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class MessageService {
-    private MessageMapper messageMapper;
+    private final MessageMapper messageMapper;
 
     public MessageService(MessageMapper messageMapper) {
         this.messageMapper = messageMapper;
